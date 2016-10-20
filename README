@@ -1,1 +1,10 @@
 a little environment app for the lab
+
+
+To use this in your other script:
+
+
+# begin python (put these lines at the top of the file where you write data
+import sensors.outside
+# This prepares the connection to the database
+sensors.outside.prepare()
