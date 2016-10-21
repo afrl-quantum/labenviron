@@ -1,7 +1,14 @@
+import django
 
-from django.conf import settings
-from . import settings as sensors_settings
+if django.VERSION < (1,7):
+  from django.conf import settings
+  from . import settings as sensors_settings
 
-
-def prepare():
-  settings.configure(DATABASES=sensors_settings.DATABASES)
+  settings.configure(
+    DATABASES=sensors_settings.DATABASES,
+    TIME_ZONE='America/Denver',
+  )
+else:
+  import os
+  os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sensors.settings')
+  django.setup()
