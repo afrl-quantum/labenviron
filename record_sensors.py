@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from Adafruit_BME280 import *
-import datetime, time, socket
+import datetime, time, socket, argparse
 import sensors.outside
 from labenviron.models import LabData
 
@@ -28,4 +28,8 @@ def main():
 
 
 if __name__=='__main__':
-  main()
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--interval', default=300, type=int,
+    help='Specify the time interval in seconds [Default 300]')
+  args = parser.parse_args()
+  main(args.timestep)
