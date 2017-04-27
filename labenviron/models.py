@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+import time, numpy as np
 
 # Create your models here.
 
@@ -19,3 +20,14 @@ class LabData(models.Model):
 
   def __repr__(self):
     return str(self)
+
+  @property
+  def timestamp(self):
+    return time.mktime(self.time.timetuple())
+
+  def __array__(self):
+    return np.array([self.timestamp, self.temperature, self.pressure, self.humidity])
+
+  @classmethod
+  def queryset_toarray(cls, q):
+    return np.array([np.array(i) for i in q])
