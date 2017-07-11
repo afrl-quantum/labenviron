@@ -6,7 +6,7 @@ import sensors.outside
 from labenviron.models import LabData
 
 
-def main():
+def main(interval):
   sensor = BME280(mode=BME280_OSAMPLE_8)
   hostname = socket.gethostname()
 
@@ -24,7 +24,7 @@ def main():
                  humidity=humidity)
     ld.save()
     # Time interval between sensor readouts 5 minutes
-    time.sleep(300)
+    time.sleep(interval)
 
 
 if __name__=='__main__':
@@ -32,4 +32,4 @@ if __name__=='__main__':
   parser.add_argument('--interval', default=300, type=int,
     help='Specify the time interval in seconds [Default 300]')
   args = parser.parse_args()
-  main(args.timestep)
+  main(args.interval)
