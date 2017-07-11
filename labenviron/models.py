@@ -15,8 +15,8 @@ class LabData(models.Model):
     unique_together = (('host', 'time'),)
 
   def __str__(self):
-    return '{}: temp: {} C, press: {} hPa, humid: {} %' \
-      .format(self.time.strftime('%F %X'), self.temperature, self.pressure, self.humidity)
+    return 'host: {}, time: {}, temp: {} C, press: {} hPa, humid: {} %' \
+      .format(self.host, self.time.strftime('%F %X'), self.temperature, self.pressure, self.humidity)
 
   def __repr__(self):
     return str(self)
