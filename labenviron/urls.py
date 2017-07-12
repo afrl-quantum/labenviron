@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
   url(r'^$', views.index, name='index'),
-  url(r'^all$', views.all),
-  url(r'^day/(?P<day>\d{8})$', views.day),
+  url(r'^plot$', views.plot, name='plot'),
+  url(r'^data$', views.data, name='data'),
 ]

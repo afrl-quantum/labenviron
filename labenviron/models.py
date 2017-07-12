@@ -2,6 +2,8 @@ from django.db import models
 from datetime import datetime
 import time, numpy as np
 
+from matplotlib.dates import date2num
+
 # Create your models here.
 
 class LabData(models.Model):
@@ -25,8 +27,14 @@ class LabData(models.Model):
   def timestamp(self):
     return time.mktime(self.time.timetuple())
 
+  @property
+  def ordinal(self):
+    return date2num(self.time)
+
+
+  array_order = ['time[gregorian date]', 'Temperature', 'Pressure', 'Humidity']
   def __array__(self):
-    return np.array([self.timestamp, self.temperature, self.pressure, self.humidity])
+    return np.array([self.ordinal, self.temperature, self.pressure, self.humidity])
 
   @classmethod
   def queryset_toarray(cls, q):
