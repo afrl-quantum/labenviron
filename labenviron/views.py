@@ -25,11 +25,12 @@ def index(request):
     <script src="{jquery}"></script>
     <script>
       function get_timeout() {{
+        // input is in seconds
         v = $('input[name=interval]')[0].value;
         if (v == '') {{
           v = {reload_interval};
         }}
-        return v * {reload_interval};
+        return v * 1000;
       }}
 
       function change_download() {{
@@ -101,15 +102,26 @@ def index(request):
         change_download();
       }}
 
+      /* Time at which reload should occur */
+      var next_reload_at = 0;
+
       function reset_timer() {{
         console.log('scheduling next plot refresh...');
         clearTimeout( window.reload_timer );
-        window.reload_timer = setTimeout( do_reload, get_timeout() );
+        var dt = get_timeout();
+        next_reload_at = Date.now() + dt;
+        window.reload_timer = setTimeout( do_reload, dt );
+      }}
+
+      function show_reload_time() {{
+        var t = (next_reload_at - Date.now()) / 1000.0 | 0
+        $('#next_reload').text(t + ' s');
       }}
 
       /* start the update happening at all times. */
       $(document).ready( function() {{
         do_reload(); // first time for everything
+        setInterval(show_reload_time, 1000);
 
         $('input[name=interval]').change( function() {{ reset_timer(); }});
         $('#plot_data').on('click', function (e){{ do_reload(); }});
@@ -125,7 +137,7 @@ def index(request):
     <hr>
       <div style='width: 100%;text-align:center;' id='plot'>  </div>
     <hr>
-      <table>
+      <table align=center>
       <tr>
         <td>
           Host:
@@ -160,9 +172,10 @@ def index(request):
         </td>
       </tr>
       <tr>
-        <td>
+        <td colspan=2>
           <input type=number placeholder='Reload Interval [{reload_interval} s]'
-           name='interval' min=1/>
+           name='interval' min=1/><br>
+          Next reload at: <div style='display:inline;' id='next_reload'></div>
         </td>
         <td colspan=2 align=center>
         <input type=button id=plot_data value="Re-Plot Data"/>
