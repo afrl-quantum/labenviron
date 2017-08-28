@@ -7,7 +7,9 @@ from labenviron.models import LabData
 
 
 def main(interval):
-  sensor = BME280(mode=BME280_OSAMPLE_8)
+  sensor = BME280(t_mode=BME280_OSAMPLE_8,
+                  p_mode=BME280_OSAMPLE_8,
+                  h_mode=BME280_OSAMPLE_8)
   hostname = socket.gethostname()
 
   # Loop to collect data for one week
