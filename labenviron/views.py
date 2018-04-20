@@ -1,4 +1,4 @@
-import datetime, StringIO
+import datetime, io
 import numpy as np
 
 from django.shortcuts import render
@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 
 from labenviron import models
 
-import plotter
+from . import plotter
 
 # Create your views here.
 
@@ -200,7 +200,7 @@ def data(request):
   kw['D0'] = request.GET.get('date_begin',  None) #defaults to today
   kw['D1'] = request.GET.get('date_end',    None) #defaults to today
   data = plotter.get_data(**kw)
-  output = StringIO.StringIO()
+  output = io.StringIO()
   output.write(
     '# Environmental Lab Data\n'
     '# Host: {host}\n'

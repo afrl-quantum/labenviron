@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # vim: et:ts=2:sw=2:tw=80:nowrap
 
 # our current global for storing link to alarm client
@@ -123,7 +123,7 @@ def get_sensor_plot(*a, **kw):
 
 if __name__ == '__main__':
   if False:
-    print get_sensor_plot()
+    print(get_sensor_plot())
   else:
     mk_plot()
     #mpld3.show()

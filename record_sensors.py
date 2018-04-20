@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from Adafruit_BME280 import *
 import datetime, time, socket, argparse
