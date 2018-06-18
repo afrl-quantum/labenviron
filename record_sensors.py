@@ -2,7 +2,7 @@
 
 from Adafruit_BME280 import *
 import datetime, time, socket, argparse
-import sensors.outside
+import sensorsite.outside
 from labenviron.models import HostInfo, LabData
 
 

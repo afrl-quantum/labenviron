@@ -18,10 +18,12 @@ Adafruit
   - Adafruit_GPIO
 
 *********************
-sensors/settings.py
+sensorsite/local_settings.py
 *********************
-In most cases, configuring this webapp for use consists of changing a few
-small entries in sensors/settings.py:
+In most cases, configuring this webapp for use consists of adding a few
+small entries in sensorsite/local_settings.py:
+  - All items in sensorsite/local_settings.py will override the values in
+    sensorsite/settings.py
   - The most critical of these two will be the database configuration.  Thanks
     to Django, this code is somewhat agnostic to the particular version and
     flavor of the database that you wish to use.  Please just follow standard

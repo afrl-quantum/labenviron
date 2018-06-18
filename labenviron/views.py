@@ -15,8 +15,8 @@ from . import plotter
 def index(request):
   jquery = static('labenviron/js/jquery-3.2.1.min.js')
   reload_interval = 300
-  data_url = reverse('data')
-  plot_url = reverse('plot')
+  data_url = reverse('labenviron:data')
+  plot_url = reverse('labenviron:plot')
 
   page = """\
   <html>
