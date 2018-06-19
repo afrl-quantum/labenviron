@@ -11,6 +11,15 @@ class HostInfo(models.Model):
   location    = models.CharField(max_length=64, null=True, blank=True)
   comments    = models.TextField(null=True, blank=True)
 
+  def __str__(self):
+    return self.host
+
+  def __unicode__(self):
+    return unicode(str(self))
+
+  def __repr__(self):
+    return '<{}>'.format(self)
+
 class LabData(models.Model):
   host        = models.ForeignKey(HostInfo, max_length=64)
   time        = models.DateTimeField(default=datetime.now)
@@ -27,6 +36,9 @@ class LabData(models.Model):
 
   def __repr__(self):
     return str(self)
+
+  def __unicode__(self):
+    return unicode(str(self))
 
   @property
   def timestamp(self):
