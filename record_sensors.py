@@ -12,7 +12,7 @@ def main(interval):
                   h_mode=BME280_OSAMPLE_8)
 
   # first thing is to get  our host object
-  host = HostInfo.objects.get_or_create(host=socket.gethostname())
+  host = HostInfo.objects.get_or_create(host=socket.gethostname())[0]
 
   # Loop to collect data for one week
   while True:
