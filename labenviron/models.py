@@ -6,8 +6,13 @@ from matplotlib.dates import date2num
 
 # Create your models here.
 
+class HostInfo(models.Model):
+  host        = models.CharField(max_length=64, primary_key=True)
+  location    = models.CharField(max_length=64, null=True, blank=True)
+  comments    = models.TextField(null=True, blank=True)
+
 class LabData(models.Model):
-  host        = models.CharField(max_length=64)
+  host        = models.ForeignKey(HostInfo, max_length=64)
   time        = models.DateTimeField(default=datetime.now)
   temperature = models.FloatField() # deg C
   pressure    = models.FloatField() # hPa

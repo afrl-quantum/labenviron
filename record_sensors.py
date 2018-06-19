@@ -3,14 +3,16 @@
 from Adafruit_BME280 import *
 import datetime, time, socket, argparse
 import sensors.outside
-from labenviron.models import LabData
+from labenviron.models import HostInfo, LabData
 
 
 def main(interval):
   sensor = BME280(t_mode=BME280_OSAMPLE_8,
                   p_mode=BME280_OSAMPLE_8,
                   h_mode=BME280_OSAMPLE_8)
-  hostname = socket.gethostname()
+
+  # first thing is to get  our host object
+  host = HostInfo.objects.get_or_create(host=socket.gethostname())
 
   # Loop to collect data for one week
   while True:
@@ -20,7 +22,7 @@ def main(interval):
     humidity      = sensor.read_humidity()
 
     # Generate string to write to file
-    ld = LabData(host=hostname,
+    ld = LabData(host=host,
                  temperature=degrees,
                  pressure=hectopascals,
                  humidity=humidity)
