@@ -187,8 +187,10 @@ def index(request):
   </html>
   """
   host_options = [
-    '<option>{}</option>'.format(h)
-    for (h,) in models.LabData.objects.order_by('host').values_list('host').distinct()
+    '<option value="{h}">{h} [{l}]</option>'
+      .format(h=h,l=l if l is not None else '')
+    for (h,l) in models.HostInfo.objects.order_by('host')
+                       .values_list('host', 'location')
   ]
 
   return HttpResponse( page.format(**locals()) )
